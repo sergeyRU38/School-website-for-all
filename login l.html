@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Электронный журнал - Вход</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #8B0000 0%, #B22222 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .login-container {
+            background: white;
+            border-radius: 0;
+            box-shadow: 0 8px 32px rgba(139, 0, 0, 0.3);
+            width: 100%;
+            max-width: 480px;
+            padding: 40px;
+            border: 3px solid #8B0000;
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #8B0000;
+        }
+        
+        .logo h1 {
+            color: #8B0000;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+        
+        .logo .subtitle {
+            color: #666;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #ddd;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 14px;
+            text-align: center;
+            background: none;
+            border: none;
+            font-size: 14px;
+            font-weight: bold;
+            color: #666;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s ease;
+        }
+        
+        .tab.active {
+            color: #8B0000;
+            border-bottom: 3px solid #8B0000;
+        }
+        
+        .tab:hover {
+            color: #8B0000;
+            background: #FFF5F5;
+        }
+        
+        .form-container {
+            display: none;
+        }
+        
+        .form-container.active {
+            display: block;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #333;
+            font-size: 14px;
+        }
+        
+        .form-group input, .form-group select {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #ddd;
+            border-radius: 0;
+            font-size: 14px;
+            background: white;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus, .form-group select:focus {
+            border-color: #8B0000;
+            outline: none;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 16px;
+            background: #8B0000;
+            color: white;
+            border: none;
+            border-radius: 0;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            border: 2px solid #600000;
+            margin-top: 10px;
+            transition: background 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: #600000;
+        }
+        
+        .btn-secondary {
+            background: #666;
+            border-color: #555;
+        }
+        
+        .btn-secondary:hover {
+            background: #555;
+        }
+        
+        .message {
+            padding: 14px;
+            margin: 15px 0;
+            border-radius: 0;
+            text-align: center;
+            font-size: 14px;
+            display: none;
+            border: 2px solid;
+        }
+        
+        .success {
+            background: #F0FFF0;
+            color: #006400;
+            border-color: #90EE90;
+        }
+        
+        .error {
+            background: #FFF0F0;
+            color: #8B0000;
+            border-color: #FFB6C1;
+        }
+        
+        .info {
+            background: #F0F8FF;
+            color: #000080;
+            border-color: #87CEEB;
+        }
+        
+        .role-selection {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        
+        .role-option {
+            padding: 14px;
+            border: 2px solid #ddd;
+            border-radius: 0;
+            text-align: center;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .role-option.selected {
+            border-color: #8B0000;
+            background: #FFF5F5;
+            font-weight: bold;
+            color: #8B0000;
+        }
+        
+        .role-option:hover {
+            border-color: #8B0000;
+        }
+        
+        .code-input {
+            font-size: 18px;
+            text-align: center;
+            letter-spacing: 3px;
+            font-weight: bold;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .test-users {
+            background: #FFF5F5;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0;
+            border: 2px solid #8B0000;
+        }
+        
+        .test-users h4 {
+            color: #8B0000;
+            margin-bottom: 12px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .test-user {
+            padding: 10px;
+            margin: 6px 0;
+            background: white;
+            border-radius: 0;
+            cursor: pointer;
+            border: 1px solid #ddd;
+            font-size: 13px;
+            transition: all 0.3s ease;
+        }
+        
+        .test-user:hover {
+            background: #FFE4E1;
+            border-color: #8B0000;
+        }
+        
+        .system-notice {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid #ddd;
+            color: #666;
+            font-size: 12px;
+        }
+        
+        .required {
+            color: #8B0000;
+        }
+        
+        .form-header {
+            color: #8B0000;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+            font-size: 16px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo">
+            <h1>ЭЛЕКТРОННЫЙ ЖУРНАЛ</h1>
+            <div class="subtitle">ОФИЦИАЛЬНАЯ СИСТЕМА УЧЁТА УСПЕВАЕМОСТИ</div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('login')">ВХОД</button>
+            <button class="tab" onclick="showTab('code-login')">ВХОД С КОДОМ</button>
+            <button class="tab" onclick="showTab('register')">РЕГИСТРАЦИЯ</button>
+            <button class="tab" onclick="showTab('connect-school')">ПОДКЛ. ОО</button>
+        </div>
+
+        <!-- Обычный вход -->
+        <div id="login-form" class="form-container active">
+            <div class="test-users">
+                <h4>🔒 ТЕСТОВЫЕ ДОСТУПЫ</h4>
+                <div class="test-user" onclick="fillCredentials('director@school.ru', '123456')">
+                    👑 ДИРЕКТОР - director@school.ru
+                </div>
+                <div class="test-user" onclick="fillCredentials('teacher@school.ru', '123456')">
+                    👩‍🏫 УЧИТЕЛЬ - teacher@school.ru
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>ЭЛЕКТРОННАЯ ПОЧТА:</label>
+                <input type="email" id="login-email" placeholder="example@school.ru">
+            </div>
+            
+            <div class="form-group">
+                <label>ПАРОЛЬ:</label>
+                <input type="password" id="login-password" placeholder="Введите пароль">
+            </div>
+            
+            <button class="btn" onclick="login()">ВОЙТИ В СИСТЕМУ</button>
+
+            <div class="message success" id="login-success">✅ Вход успешен! Перенаправление...</div>
+            <div class="message error" id="login-error"></div>
+        </div>
+
+        <!-- Вход с кодом -->
+        <div id="code-login-form" class="form-container">
+            <div class="form-header">🔐 ДОСТУП ПО КОДУ ПОДТВЕРЖДЕНИЯ</div>
+            
+            <div class="message info">
+                Введите 6-значный код доступа, предоставленный администратором образовательной организации
+            </div>
+
+            <div class="form-group">
+                <label>КОД ДОСТУПА:</label>
+                <input type="text" id="access-code" class="code-input" placeholder="A1B2C3" maxlength="6">
+            </div>
+            
+            <button class="btn" onclick="loginWithCode()">ПОДТВЕРДИТЬ И ВОЙТИ</button>
+
+            <div class="message success" id="code-success"></div>
+            <div class="message error" id="code-error"></div>
+        </div>
+
+        <!-- Регистрация -->
+        <div id="register-form" class="form-container">
+            <div class="form-header">📝 РЕГИСТРАЦИЯ В СИСТЕМЕ</div>
+
+            <div class="form-group">
+                <label>ФИО <span class="required">*</span>:</label>
+                <input type="text" id="reg-name" placeholder="Иванов Иван Иванович">
+            </div>
+            
+            <div class="form-group">
+                <label>ЭЛЕКТРОННАЯ ПОЧТА <span class="required">*</span>:</label>
+                <input type="email" id="reg-email" placeholder="example@school.ru">
+            </div>
+            
+            <div class="form-group">
+                <label>ПАРОЛЬ <span class="required">*</span>:</label>
+                <input type="password" id="reg-password" placeholder="Не менее 6 символов">
+            </div>
+
+            <div class="form-group">
+                <label>ДОЛЖНОСТЬ/РОЛЬ <span class="required">*</span>:</label>
+                <div class="role-selection">
+                    <div class="role-option" onclick="selectRole('teacher')">ПЕДАГОГИЧЕСКИЙ РАБОТНИК</div>
+                    <div class="role-option" onclick="selectRole('student')">ОБУЧАЮЩИЙСЯ</div>
+                    <div class="role-option" onclick="selectRole('canteen')">РАБОТНИК СТОЛОВОЙ</div>
+                    <div class="role-option" onclick="selectRole('secretary')">СЕКРЕТАРЬ</div>
+                    <div class="role-option" onclick="selectRole('admin')">АДМИНИСТРАТИВНЫЙ ПЕРСОНАЛ</div>
+                </div>
+                <input type="hidden" id="reg-role" value="">
+            </div>
+
+            <div class="form-group">
+                <label>ОБРАЗОВАТЕЛЬНАЯ ОРГАНИЗАЦИЯ <span class="required">*</span>:</label>
+                <input type="text" id="reg-school" placeholder="Полное название образовательной организации">
+            </div>
+            
+            <button class="btn" onclick="register()">ОТПРАВИТЬ ЗАЯВКУ НА РЕГИСТРАЦИЮ</button>
+
+            <div class="message success" id="reg-success"></div>
+            <div class="message error" id="reg-error"></div>
+        </div>
+
+        <!-- Подключение ОО (создание школы) -->
+        <div id="connect-school-form" class="form-container">
+            <div class="form-header">🏫 ПОДКЛЮЧЕНИЕ ОБРАЗОВАТЕЛЬНОЙ ОРГАНИЗАЦИИ</div>
+
+            <div class="message info">
+                Для руководителей образовательных организаций. Создание учётной записи директора.
+            </div>
+
+            <div class="form-group">
+                <label>ФИО РУКОВОДИТЕЛЯ <span class="required">*</span>:</label>
+                <input type="text" id="director-name" placeholder="Иванов Иван Иванович">
+            </div>
+            
+            <div class="form-group">
+                <label>ЭЛЕКТРОННАЯ ПОЧТА <span class="required">*</span>:</label>
+                <input type="email" id="director-email" placeholder="director@school.ru">
+            </div>
+            
+            <div class="form-group">
+                <label>ПАРОЛЬ <span class="required">*</span>:</label>
+                <input type="password" id="director-password" placeholder="Не менее 6 символов">
+            </div>
+
+            <div class="form-group">
+                <label>НАИМЕНОВАНИЕ ОО <span class="required">*</span>:</label>
+                <input type="text" id="school-name" placeholder="Полное наименование по уставу">
+            </div>
+
+            <div class="form-group">
+                <label>НАСЕЛЁННЫЙ ПУНКТ <span class="required">*</span>:</label>
+                <input type="text" id="school-city" placeholder="Город/Населённый пункт">
+            </div>
+
+            <div class="form-group">
+                <label>ЮРИДИЧЕСКИЙ АДРЕС:</label>
+                <input type="text" id="school-address" placeholder="Адрес образовательной организации">
+            </div>
+            
+            <button class="btn" onclick="createSchool()">ЗАРЕГИСТРИРОВАТЬ ОРГАНИЗАЦИЮ</button>
+
+            <div class="message success" id="school-success"></div>
+            <div class="message error" id="school-error"></div>
+        </div>
+
+        <div class="system-notice">
+            © Официальная система электронного журнала<br>
+            Все действия в системе протоколируются
+        </div>
+    </div>
+
+    <script>
+        // Инициализация данных
+        function initializeData() {
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+            let schools = JSON.parse(localStorage.getItem('schools')) || [];
+            let pendingRequests = JSON.parse(localStorage.getItem('pendingRequests')) || [];
+            let accessCodes = JSON.parse(localStorage.getItem('accessCodes')) || [];
+
+            // Создаем тестового директора и школу если их нет
+            if (users.length === 0) {
+                const testDirector = {
+                    id: 1,
+                    name: "Александр Петров",
+                    email: "director@school.ru",
+                    password: "123456",
+                    role: "director",
+                    schoolId: 1,
+                    approved: true,
+                    registered: new Date().toLocaleString('ru-RU')
+                };
+                users.push(testDirector);
+
+                const testSchool = {
+                    id: 1,
+                    name: "МУНИЦИПАЛЬНОЕ БЮДЖЕТНОЕ ОБЩЕОБРАЗОВАТЕЛЬНОЕ УЧРЕЖДЕНИЕ \"СРЕДНЯЯ ШКОЛА №1\"",
+                    city: "МОСКВА",
+                    address: "УЛ. ЛЕНИНА, Д. 1",
+                    director: "director@school.ru",
+                    created: new Date().toLocaleString('ru-RU')
+                };
+                schools.push(testSchool);
+
+                const testTeacher = {
+                    id: 2,
+                    name: "Мария Иванова",
+                    email: "teacher@school.ru",
+                    password: "123456",
+                    role: "teacher",
+                    schoolId: 1,
+                    approved: true,
+                    registered: new Date().toLocaleString('ru-RU')
+                };
+                users.push(testTeacher);
+
+                localStorage.setItem('users', JSON.stringify(users));
+                localStorage.setItem('schools', JSON.stringify(schools));
+                localStorage.setItem('pendingRequests', JSON.stringify(pendingRequests));
+                localStorage.setItem('accessCodes', JSON.stringify(accessCodes));
+            }
+        }
+
+        initializeData();
+
+        function showTab(tabName) {
+            // Скрываем все формы
+            document.querySelectorAll('.form-container').forEach(form => {
+                form.classList.remove('active');
+            });
+            
+            // Убираем активность с вкладок
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Показываем выбранную форму
+            document.getElementById(tabName + '-form').classList.add('active');
+            
+            // Активируем вкладку
+            event.target.classList.add('active');
+            
+            // Скрываем сообщения
+            hideAllMessages();
+        }
+
+        function hideAllMessages() {
+            document.querySelectorAll('.message').forEach(msg => {
+                msg.style.display = 'none';
+            });
+        }
+
+        function showMessage(elementId, text, type) {
+            const element = document.getElementById(elementId);
+            element.textContent = text;
+            element.className = `message ${type}`;
+            element.style.display = 'block';
+        }
+
+        function fillCredentials(email, password) {
+            document.getElementById('login-email').value = email;
+            document.getElementById('login-password').value = password;
+        }
+
+        function selectRole(role) {
+            document.getElementById('reg-role').value = role;
+            document.querySelectorAll('.role-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+            event.target.classList.add('selected');
+        }
+
+        // Обычный вход
+        function login() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            if (!email || !password) {
+                showMessage('login-error', 'Заполните все обязательные поля', 'error');
+                return;
+            }
+
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const user = users.find(u => u.email === email && u.password === password && u.approved);
+
+            if (user) {
+                showMessage('login-success', '✅ Вход успешен! Перенаправление...', 'success');
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                
+                setTimeout(() => {
+                    window.location.href = 'journal.html';
+                }, 1000);
+            } else {
+                showMessage('login-error', '❌ Неверный email, пароль или аккаунт не подтверждён', 'error');
+            }
+        }
+
+        // Вход с кодом
+        function loginWithCode() {
+            const code = document.getElementById('access-code').value.toUpperCase();
+
+            if (!code || code.length !== 6) {
+                showMessage('code-error', '❌ Введите корректный 6-значный код доступа', 'error');
+                return;
+            }
+
+            const accessCodes = JSON.parse(localStorage.getItem('accessCodes')) || [];
+            const codeData = accessCodes.find(c => c.code === code && !c.used);
+
+            if (codeData) {
+                const users = JSON.parse(localStorage.getItem('users')) || [];
+                const user = users.find(u => u.id === codeData.userId);
+                
+                if (user) {
+                    // Активируем пользователя
+                    user.approved = true;
+                    localStorage.setItem('users', JSON.stringify(users));
+                    
+                    // Помечаем код как использованный
+                    codeData.used = true;
+                    codeData.usedAt = new Date().toLocaleString('ru-RU');
+                    localStorage.setItem('accessCodes', JSON.stringify(accessCodes));
+                    
+                    // Удаляем заявку
+                    const pendingRequests = JSON.parse(localStorage.getItem('pendingRequests')) || [];
+                    const updatedRequests = pendingRequests.filter(r => r.userId !== codeData.userId);
+                    localStorage.setItem('pendingRequests', JSON.stringify(updatedRequests));
+                    
+                    showMessage('code-success', '✅ Аккаунт успешно активирован! Выполняется вход...', 'success');
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    
+                    setTimeout(() => {
+                        window.location.href = 'journal.html';
+                    }, 1500);
+                } else {
+                    showMessage('code-error', '❌ Ошибка активации учётной записи', 'error');
+                }
+            } else {
+                showMessage('code-error', '❌ Неверный или уже использованный код доступа', 'error');
+            }
+        }
+
+        // Регистрация нового пользователя
+        function register() {
+            const name = document.getElementById('reg-name').value;
+            const email = document.getElementById('reg-email').value;
+            const password = document.getElementById('reg-password').value;
+            const role = document.getElementById('reg-role').value;
+            const schoolName = document.getElementById('reg-school').value;
+
+            if (!name || !email || !password || !role || !schoolName) {
+                showMessage('reg-error', '❌ Заполните все обязательные поля', 'error');
+                return;
+            }
+
+            if (password.length < 6) {
+                showMessage('reg-error', '❌ Пароль должен содержать не менее 6 символов', 'error');
+                return;
+            }
+
+            // Проверяем существование школы
+            const schools = JSON.parse(localStorage.getItem('schools')) || [];
+            const school = schools.find(s => 
+                s.name.toLowerCase().includes(schoolName.toLowerCase()) || 
+                schoolName.toLowerCase().includes(s.name.toLowerCase())
+            );
+
+            if (!school) {
+                showMessage('reg-error', '❌ Образовательная организация не найдена. Проверьте наименование', 'error');
+                return;
+            }
+
+            // Проверяем, нет ли уже пользователя с таким email
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            if (users.find(u => u.email === email)) {
+                showMessage('reg-error', '❌ Пользователь с указанным email уже зарегистрирован', 'error');
+                return;
+            }
+
+            // Создаем пользователя (неактивированного)
+            const newUser = {
+                id: Date.now(),
+                name: name,
+                email: email,
+                password: password,
+                role: role,
+                schoolId: school.id,
+                approved: false,
+                registered: new Date().toLocaleString('ru-RU')
+            };
+
+            users.push(newUser);
+            localStorage.setItem('users', JSON.stringify(users));
+
+            // Создаем заявку
+            const pendingRequests = JSON.parse(localStorage.getItem('pendingRequests')) || [];
+            pendingRequests.push({
+                userId: newUser.id,
+                userName: name,
+                userEmail: email,
+                userRole: role,
+                schoolId: school.id,
+                schoolName: school.name,
+                requestedAt: new Date().toLocaleString('ru-RU'),
+                status: 'pending'
+            });
+            localStorage.setItem('pendingRequests', JSON.stringify(pendingRequests));
+
+            showMessage('reg-success', 
+                '✅ Заявка на регистрацию успешно отправлена! Ожидайте подтверждения от администратора образовательной организации. ' +
+                'После подтверждения вам будет предоставлен код доступа.', 
+                'success'
+            );
+
+            // Очищаем форму
+            document.getElementById('reg-name').value = '';
+            document.getElementById('reg-email').value = '';
+            document.getElementById('reg-password').value = '';
+            document.getElementById('reg-school').value = '';
+            document.querySelectorAll('.role-option').forEach(option => {
+                option.classList.remove('selected');
+            });
+        }
+
+        // Создание школы (для директоров)
+        function createSchool() {
+            const name = document.getElementById('director-name').value;
+            const email = document.getElementById('director-email').value;
+            const password = document.getElementById('director-password').value;
+            const schoolName = document.getElementById('school-name').value;
+            const city = document.getElementById('school-city').value;
+            const address = document.getElementById('school-address').value;
+
+            if (!name || !email || !password || !schoolName || !city) {
+                showMessage('school-error', '❌ Заполните все обязательные поля', 'error');
+                return;
+            }
+
+            if (password.length < 6) {
+                showMessage('school-error', '❌ Пароль должен содержать не менее 6 символов', 'error');
+                return;
+            }
+
+            // Проверяем, нет ли уже пользователя с таким email
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            if (users.find(u => u.email === email)) {
+                showMessage('school-error', '❌ Пользователь с указанным email уже зарегистрирован', 'error');
+                return;
+            }
+
+            // Создаем школу
+            const schools = JSON.parse(localStorage.getItem('schools')) || [];
+            const newSchool = {
+                id: Date.now(),
+                name: schoolName,
+                city: city,
+                address: address,
+                director: email,
+                created: new Date().toLocaleString('ru-RU')
+            };
+            schools.push(newSchool);
+            localStorage.setItem('schools', JSON.stringify(schools));
+
+            // Создаем директора
+            const newDirector = {
+                id: Date.now() + 1,
+                name: name,
+                email: email,
+                password: password,
+                role: "director",
+                schoolId: newSchool.id,
+                approved: true,
+                registered: new Date().toLocaleString('ru-RU')
+            };
+            users.push(newDirector);
+            localStorage.setItem('users', JSON.stringify(users));
+
+            showMessage('school-success', 
+                '✅ Образовательная организация успешно зарегистрирована! Теперь вы можете войти в систему как руководитель.', 
+                'success'
+            );
+
+            // Очищаем форму
+            document.getElementById('director-name').value = '';
+            document.getElementById('director-email').value = '';
+            document.getElementById('director-password').value = '';
+            document.getElementById('school-name').value = '';
+            document.getElementById('school-city').value = '';
+            document.getElementById('school-address').value = '';
+        }
+
+        // Обработка Enter
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const activeForm = document.querySelector('.form-container.active').id;
+                if (activeForm === 'login-form') login();
+                if (activeForm === 'code-login-form') loginWithCode();
+                if (activeForm === 'register-form') register();
+                if (activeForm === 'connect-school-form') createSchool();
+            }
+        });
+    </script>
+</body>
+</html>
