@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>МБОУ СОШ №1 - Официальный сайт</title>
+    <meta name="description" content="Официальный сайт МБОУ Средней школы №1. Электронный журнал, расписание, новости школы.">
+    <style>
+        /* Тот же стиль что и раньше */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* ... остальные стили ... */
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <div class="logo">
+                <div>
+                    <h1>МБОУ "СРЕДНЯЯ ШКОЛА №1"</h1>
+                    <div class="logo-subtitle">ОФИЦИАЛЬНЫЙ САЙТ ОБРАЗОВАТЕЛЬНОЙ ОРГАНИЗАЦИИ</div>
+                </div>
+            </div>
+            <div style="text-align: right;">
+                <div style="font-size: 14px;">📞 +7 (495) 123-45-67</div>
+                <div style="font-size: 14px;">📧 info@school1.ru</div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="nav">
+        <div class="nav-container">
+            <ul class="nav-menu">
+                <li class="nav-item active"><a href="index.html" style="text-decoration: none; color: inherit;">ГЛАВНАЯ</a></li>
+                <li class="nav-item"><a href="about.html" style="text-decoration: none; color: inherit;">О ШКОЛЕ</a></li>
+                <li class="nav-item"><a href="news.html" style="text-decoration: none; color: inherit;">НОВОСТИ</a></li>
+                <li class="nav-item"><a href="schedule.html" style="text-decoration: none; color: inherit;">РАСПИСАНИЕ</a></li>
+                <li class="nav-item"><a href="login.html" style="text-decoration: none; color: inherit;">ЭЛЕКТРОННЫЙ ЖУРНАЛ</a></li>
+                <li class="nav-item"><a href="teachers.html" style="text-decoration: none; color: inherit;">УЧИТЕЛЯ</a></li>
+                <li class="nav-item"><a href="students.html" style="text-decoration: none; color: inherit;">УЧЕНИКАМ</a></li>
+                <li class="nav-item"><a href="parents.html" style="text-decoration: none; color: inherit;">РОДИТЕЛЯМ</a></li>
+                <li class="nav-item"><a href="contacts.html" style="text-decoration: none; color: inherit;">КОНТАКТЫ</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Остальной код без изменений -->
+    
+    <script>
+        // Подсветка активной страницы
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        document.querySelectorAll('.nav-item a').forEach(link => {
+            if (link.getAttribute('href') === currentPage) {
+                link.parentElement.classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>
