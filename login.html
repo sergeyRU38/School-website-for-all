@@ -11,7 +11,7 @@
             box-sizing: border-box;
             font-family: 'Arial', sans-serif;
         }
-        
+
         body {
             background: linear-gradient(135deg, #8B0000 0%, #B22222 100%);
             min-height: 100vh;
@@ -20,7 +20,7 @@
             justify-content: center;
             padding: 20px;
         }
-        
+
         .login-container {
             background: white;
             border-radius: 0;
@@ -30,14 +30,14 @@
             padding: 40px;
             border: 3px solid #8B0000;
         }
-        
+
         .logo {
             text-align: center;
             margin-bottom: 30px;
             padding-bottom: 20px;
             border-bottom: 2px solid #8B0000;
         }
-        
+
         .logo h1 {
             color: #8B0000;
             font-size: 24px;
@@ -45,20 +45,20 @@
             margin-bottom: 8px;
             letter-spacing: 0.5px;
         }
-        
+
         .logo .subtitle {
             color: #8B0000;
             font-size: 14px;
             font-weight: bold;
             font-style: italic;
         }
-        
+
         .tabs {
             display: flex;
             margin-bottom: 25px;
             border-bottom: 2px solid #ddd;
         }
-        
+
         .tab {
             flex: 1;
             padding: 14px;
@@ -72,29 +72,29 @@
             border-bottom: 3px solid transparent;
             transition: all 0.3s ease;
         }
-        
+
         .tab.active {
             color: #8B0000;
             border-bottom: 3px solid #8B0000;
         }
-        
+
         .tab:hover {
             color: #8B0000;
             background: #FFF5F5;
         }
-        
+
         .form-container {
             display: none;
         }
-        
+
         .form-container.active {
             display: block;
         }
-        
+
         .form-group {
             margin-bottom: 20px;
         }
-        
+
         .form-group label {
             display: block;
             margin-bottom: 8px;
@@ -102,7 +102,7 @@
             color: #333;
             font-size: 14px;
         }
-        
+
         .form-group input, .form-group select {
             width: 100%;
             padding: 14px 16px;
@@ -112,12 +112,12 @@
             background: white;
             transition: border-color 0.3s ease;
         }
-        
+
         .form-group input:focus, .form-group select:focus {
             border-color: #8B0000;
             outline: none;
         }
-        
+
         .btn {
             width: 100%;
             padding: 16px;
@@ -132,20 +132,20 @@
             margin-top: 10px;
             transition: background 0.3s ease;
         }
-        
+
         .btn:hover {
             background: #600000;
         }
-        
+
         .btn-secondary {
             background: #666;
             border-color: #555;
         }
-        
+
         .btn-secondary:hover {
             background: #555;
         }
-        
+
         .message {
             padding: 14px;
             margin: 15px 0;
@@ -155,32 +155,32 @@
             display: none;
             border: 2px solid;
         }
-        
+
         .success {
             background: #F0FFF0;
             color: #006400;
             border-color: #90EE90;
         }
-        
+
         .error {
             background: #FFF0F0;
             color: #8B0000;
             border-color: #FFB6C1;
         }
-        
+
         .info {
             background: #F0F8FF;
             color: #000080;
             border-color: #87CEEB;
         }
-        
+
         .role-selection {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
             margin: 15px 0;
         }
-        
+
         .role-option {
             padding: 14px;
             border: 2px solid #ddd;
@@ -191,18 +191,18 @@
             font-weight: 500;
             transition: all 0.3s ease;
         }
-        
+
         .role-option.selected {
             border-color: #8B0000;
             background: #FFF5F5;
             font-weight: bold;
             color: #8B0000;
         }
-        
+
         .role-option:hover {
             border-color: #8B0000;
         }
-        
+
         .code-input {
             font-size: 18px;
             text-align: center;
@@ -210,7 +210,7 @@
             font-weight: bold;
             font-family: 'Courier New', monospace;
         }
-        
+
         .test-users {
             background: #FFF5F5;
             padding: 20px;
@@ -218,7 +218,7 @@
             border-radius: 0;
             border: 2px solid #8B0000;
         }
-        
+
         .test-users h4 {
             color: #8B0000;
             margin-bottom: 12px;
@@ -226,7 +226,7 @@
             font-size: 14px;
             font-weight: bold;
         }
-        
+
         .test-user {
             padding: 10px;
             margin: 6px 0;
@@ -237,12 +237,12 @@
             font-size: 13px;
             transition: all 0.3s ease;
         }
-        
+
         .test-user:hover {
             background: #FFE4E1;
             border-color: #8B0000;
         }
-        
+
         .system-notice {
             text-align: center;
             margin-top: 25px;
@@ -251,11 +251,11 @@
             color: #666;
             font-size: 12px;
         }
-        
+
         .required {
             color: #8B0000;
         }
-        
+
         .form-header {
             color: #8B0000;
             margin-bottom: 20px;
@@ -296,12 +296,12 @@
                 <label>ЭЛЕКТРОННАЯ ПОЧТА:</label>
                 <input type="email" id="login-email" placeholder="example@school.ru">
             </div>
-            
+
             <div class="form-group">
                 <label>ПАРОЛЬ:</label>
                 <input type="password" id="login-password" placeholder="Введите пароль">
             </div>
-            
+
             <button class="btn" onclick="login()">ВОЙТИ В СИСТЕМУ</button>
 
             <div class="message success" id="login-success">✅ Вход успешен! Перенаправление...</div>
@@ -311,7 +311,7 @@
         <!-- Вход с кодом -->
         <div id="code-login-form" class="form-container">
             <div class="form-header">🔐 ДОСТУП ПО КОДУ ПОДТВЕРЖДЕНИЯ</div>
-            
+
             <div class="message info">
                 Введите 6-значный код доступа, предоставленный администратором образовательной организации
             </div>
@@ -320,7 +320,7 @@
                 <label>КОД ДОСТУПА:</label>
                 <input type="text" id="access-code" class="code-input" placeholder="A1B2C3" maxlength="6">
             </div>
-            
+
             <button class="btn" onclick="loginWithCode()">ПОДТВЕРДИТЬ И ВОЙТИ</button>
 
             <div class="message success" id="code-success"></div>
@@ -335,12 +335,12 @@
                 <label>ФИО <span class="required">*</span>:</label>
                 <input type="text" id="reg-name" placeholder="Иванов Иван Иванович">
             </div>
-            
+
             <div class="form-group">
                 <label>ЭЛЕКТРОННАЯ ПОЧТА <span class="required">*</span>:</label>
                 <input type="email" id="reg-email" placeholder="example@school.ru">
             </div>
-            
+
             <div class="form-group">
                 <label>ПАРОЛЬ <span class="required">*</span>:</label>
                 <input type="password" id="reg-password" placeholder="Не менее 6 символов">
@@ -363,7 +363,7 @@
                 <label>ОБРАЗОВАТЕЛЬНАЯ ОРГАНИЗАЦИЯ <span class="required">*</span>:</label>
                 <input type="text" id="reg-school" placeholder="ЧОУ 'Школа с углублённым изучением отдельных предметов №1'">
             </div>
-            
+
             <button class="btn" onclick="register()">ОТПРАВИТЬ ЗАЯВКУ НА РЕГИСТРАЦИЮ</button>
 
             <div class="message success" id="reg-success"></div>
@@ -382,12 +382,12 @@
                 <label>ФИО РУКОВОДИТЕЛЯ <span class="required">*</span>:</label>
                 <input type="text" id="director-name" placeholder="Иванов Иван Иванович">
             </div>
-            
+
             <div class="form-group">
                 <label>ЭЛЕКТРОННАЯ ПОЧТА <span class="required">*</span>:</label>
                 <input type="email" id="director-email" placeholder="director@school.ru">
             </div>
-            
+
             <div class="form-group">
                 <label>ПАРОЛЬ <span class="required">*</span>:</label>
                 <input type="password" id="director-password" placeholder="Не менее 6 символов">
@@ -407,7 +407,7 @@
                 <label>ЮРИДИЧЕСКИЙ АДРЕС:</label>
                 <input type="text" id="school-address" placeholder="Адрес образовательной организации">
             </div>
-            
+
             <button class="btn" onclick="createSchool()">ЗАРЕГИСТРИРОВАТЬ ОРГАНИЗАЦИЮ</button>
 
             <div class="message success" id="school-success"></div>
@@ -432,7 +432,7 @@
             if (users.length === 0) {
                 const testDirector = {
                     id: 1,
-                    name: "Александр Петров",
+                    name: "Черниговский Олег Иванович",
                     email: "director@school.ru",
                     password: "123456",
                     role: "director",
@@ -479,18 +479,18 @@
             document.querySelectorAll('.form-container').forEach(form => {
                 form.classList.remove('active');
             });
-            
+
             // Убираем активность с вкладок
             document.querySelectorAll('.tab').forEach(tab => {
                 tab.classList.remove('active');
             });
-            
+
             // Показываем выбранную форму
             document.getElementById(tabName + '-form').classList.add('active');
-            
+
             // Активируем вкладку
             event.target.classList.add('active');
-            
+
             // Скрываем сообщения
             hideAllMessages();
         }
@@ -537,7 +537,7 @@
             if (user) {
                 showMessage('login-success', '✅ Вход успешен! Перенаправление...', 'success');
                 localStorage.setItem('currentUser', JSON.stringify(user));
-                
+
                 setTimeout(() => {
                     // Перенаправляем в зависимости от роли пользователя
                     if (user.role === 'director') {
@@ -568,27 +568,26 @@
             if (codeData) {
                 const users = JSON.parse(localStorage.getItem('users')) || [];
                 const user = users.find(u => u.id === codeData.userId);
-                
+
                 if (user) {
                     // Активируем пользователя
                     user.approved = true;
                     localStorage.setItem('users', JSON.stringify(users));
-                    
+
                     // Помечаем код как использованный
                     codeData.used = true;
                     codeData.usedAt = new Date().toLocaleString('ru-RU');
                     localStorage.setItem('accessCodes', JSON.stringify(accessCodes));
-                    
+
                     // Удаляем заявку
                     const pendingRequests = JSON.parse(localStorage.getItem('pendingRequests')) || [];
                     const updatedRequests = pendingRequests.filter(r => r.userId !== codeData.userId);
                     localStorage.setItem('pendingRequests', JSON.stringify(updatedRequests));
-                    
+
                     showMessage('code-success', '✅ Аккаунт успешно активирован! Выполняется вход...', 'success');
                     localStorage.setItem('currentUser', JSON.stringify(user));
-                    
+
                     setTimeout(() => {
-                        // Перенаправляем в зависимости от роли пользователя
                         if (user.role === 'director') {
                             window.location.href = 'director.html';
                         } else if (user.role === 'teacher') {
@@ -768,14 +767,7 @@
 
         // Инициализация при загрузке страницы
         document.addEventListener('DOMContentLoaded', function() {
-            // Устанавливаем сегодняшнюю дату для форм, где это нужно
-            const today = new Date().toISOString().split('T')[0];
-            
-            // Инициализируем тестовые данные
             initializeData();
-            
-            // Показываем первую вкладку активной
-            showTab('login');
         });
     </script>
 </body>
