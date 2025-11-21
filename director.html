@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>АИС ПИТС - Электронный журнал</title>
+    <title>АИС СП - Учебный процесс</title>
     <style>
         * {
             margin: 0;
@@ -13,28 +13,1546 @@
         }
         
         body {
-            background: #f8f9fa;
+            background-color: #f9f4f4;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
             min-height: 100vh;
+        }
+        
+        /* Стили для бокового меню */
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(135deg, #c62828, #b71c1c);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+        }
+        
+        .sidebar-header {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 15px;
+        }
+        
+        .sidebar-title {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        .menu {
+            list-style-type: none;
+        }
+        
+        .menu-item {
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        
+        .menu-item:hover {
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        .menu-item.active {
+            background-color: rgba(255,255,255,0.15);
+            border-left: 4px solid white;
+        }
+        
+        .menu-icon {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+        
+        /* Подменю для учебного процесса */
+        .submenu {
+            list-style-type: none;
+            background-color: rgba(0,0,0,0.1);
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+        
+        .submenu.open {
+            max-height: 500px;
+        }
+        
+        .submenu-item {
+            padding: 10px 20px 10px 50px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .submenu-item:hover {
+            background-color: rgba(255,255,255,0.05);
+        }
+        
+        .submenu-item.active {
+            background-color: rgba(255,255,255,0.1);
+        }
+        
+        /* Основной контент */
+        .main-content {
+            flex: 1;
+            margin-left: 250px;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #c62828, #b71c1c);
+            color: white;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+        
+        .header-content {
+            padding: 0 20px;
+        }
+        
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #b71c1c;
+        }
+        
+        h2 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #b71c1c;
+            border-bottom: 2px solid #ffcdd2;
+            padding-bottom: 10px;
+        }
+        
+        h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #c62828;
+        }
+        
+        /* Стили для контента разделов */
+        .section-content {
+            display: none;
+        }
+        
+        .section-content.active {
+            display: block;
+        }
+        
+        /* Стили для таблиц */
+        .table-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            overflow-x: auto;
+            border-top: 4px solid #c62828;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        th {
+            background-color: #ffebee;
+            color: #c62828;
+            font-weight: 600;
+        }
+        
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .actions {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .action-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            padding: 5px;
+        }
+        
+        /* Стили для кнопок */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+            margin: 5px;
+        }
+        
+        .btn-primary {
+            background-color: #c62828;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: #b71c1c;
+        }
+        
+        .btn-secondary {
+            background-color: #757575;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #616161;
+        }
+        
+        /* Стили для форм */
+        .form-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            border-top: 4px solid #c62828;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
             color: #333;
         }
         
-        .header {
-            background: #fff;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            border-bottom: 3px solid #8B0000;
-            position: fixed;
+        .form-group input, .form-group select {
             width: 100%;
-            top: 0;
-            z-index: 1000;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
         }
         
-        .nav {
+        .form-group.required label::after {
+            content: " *";
+            color: #c62828;
+        }
+        
+        .radio-group, .checkbox-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .radio-option, .checkbox-option {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .form-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+        
+        /* Стили для модальных окон */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 8px;
+            width: 600px;
+            max-width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        
+        .modal-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 30px;
-            max-width: 1400px;
-            margin: 0 auto;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #757575;
+        }
+        
+        /* Стили для фильтров */
+        .filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .filter-item label {
+            font-size: 12px;
+            margin-bottom: 5px;
+            color: #757575;
+        }
+        
+        .filter-item input, .filter-item select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        
+        /* Стили для учебного плана */
+        .curriculum-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .curriculum-table th, .curriculum-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+        
+        .curriculum-table th {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+        
+        .subject-row {
+            background-color: #f9f9f9;
+        }
+        
+        .subject-name {
+            text-align: left;
+            font-weight: 500;
+        }
+        
+        .hours-input {
+            width: 50px;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            text-align: center;
+        }
+        
+        /* Стили для учебной нагрузки */
+        .workload-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .workload-table th, .workload-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        .teacher-section {
+            margin-bottom: 30px;
+        }
+        
+        .teacher-name {
+            font-weight: bold;
+            color: #c62828;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        
+        .subject-name {
+            text-align: left;
+            padding-left: 20px;
+        }
+        
+        .class-cell {
+            min-width: 60px;
+            cursor: pointer;
+        }
+        
+        .class-cell.active {
+            background-color: #c62828;
+            color: white;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #757575;
+            font-style: italic;
+            background: white;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .filters {
+                flex-direction: column;
+            }
+            
+            .table-container {
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Боковое меню -->
+    <nav class="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-title">АИС СП</div>
+        </div>
+        <ul class="menu">
+            <li class="menu-item" data-section="main">
+                <span class="menu-icon">🏠</span>
+                Главная
+            </li>
+            <li class="menu-item has-submenu" data-section="users">
+                <span class="menu-icon">👥</span>
+                Пользователи
+            </li>
+            <li class="menu-item has-submenu active" data-section="education">
+                <span class="menu-icon">📚</span>
+                Учебный процесс
+            </li>
+            <ul class="submenu open" id="education-submenu">
+                <li class="submenu-item active" data-section="academic-years">Учебный год и периоды</li>
+                <li class="submenu-item" data-section="curriculum">Учебный план</li>
+                <li class="submenu-item" data-section="subjects">Предметы</li>
+                <li class="submenu-item" data-section="classes">Классы</li>
+                <li class="submenu-item" data-section="ktp">Календарно-тематическое планирование</li>
+                <li class="submenu-item" data-section="workload">Учебная нагрузка</li>
+                <li class="submenu-item" data-section="lesson-types">Типы уроков и вес</li>
+                <li class="submenu-item" data-section="profiles">Предпрофили</li>
+                <li class="submenu-item" data-section="classrooms">Кабинеты</li>
+            </ul>
+            <li class="menu-item" data-section="schedule">
+                <span class="menu-icon">📅</span>
+                Расписание и Организация
+            </li>
+            <li class="menu-item" data-section="control">
+                <span class="menu-icon">🔍</span>
+                Контроль и Взаимодействие
+            </li>
+            <li class="menu-item" data-section="journal">
+                <span class="menu-icon">📖</span>
+                Журнал
+            </li>
+            <li class="menu-item" data-section="settings">
+                <span class="menu-icon">⚙️</span>
+                Параметры
+            </li>
+            <li class="menu-item" data-section="reports">
+                <span class="menu-icon">📊</span>
+                Отчеты
+            </li>
+            <li class="menu-item" data-section="instructions">
+                <span class="menu-icon">❓</span>
+                Инструкция
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Основной контент -->
+    <main class="main-content">
+        <div class="container">
+            <header>
+                <div class="header-content">
+                    <h1 id="page-title">Учебный процесс - АИС СП</h1>
+                </div>
+            </header>
+            
+            <!-- Раздел Учебный год и периоды -->
+            <div class="section-content active" id="academic-years-section">
+                <h1>Учебный год и периоды</h1>
+                
+                <div class="table-container">
+                    <table id="academic-periods-table">
+                        <thead>
+                            <tr>
+                                <th>№</th>
+                                <th>НАЗВАНИЕ</th>
+                                <th>1-Й ПЕРИОД</th>
+                                <th>2-Й ПЕРИОД</th>
+                                <th>3-Й ПЕРИОД</th>
+                                <th>4-Й ПЕРИОД</th>
+                                <th>УЧ. НЕДЕЛЬ</th>
+                                <th>ДЕЙСТВИЯ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Данные будут заполнены через JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <button class="btn btn-primary" id="add-academic-period-btn">Добавить учебный период</button>
+            </div>
+            
+            <!-- Раздел Учебный план -->
+            <div class="section-content" id="curriculum-section">
+                <h1>Учебный план</h1>
+                <p>Учебный план организации. Выберите ступень обучения для просмотра или редактирования плана.</p>
+                
+                <div class="form-group">
+                    <label>Выберите ступень</label>
+                    <select id="education-level-select">
+                        <option value="">– Выберите ступень –</option>
+                        <option value="primary">Начальная школа (1-4 кл.)</option>
+                        <option value="basic">Основная школа (5-9 кл.)</option>
+                        <option value="secondary">Средняя школа (10-11 кл.)</option>
+                    </select>
+                </div>
+                
+                <div id="curriculum-content">
+                    <div class="empty-state">
+                        Пожалуйста, выберите ступень обучения для отображения учебного плана.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Раздел Предметы -->
+            <div class="section-content" id="subjects-section">
+                <h1>Предметы</h1>
+                
+                <div class="table-container">
+                    <table id="subjects-table">
+                        <thead>
+                            <tr>
+                                <th>№</th>
+                                <th>НАЗВАНИЕ ПРЕДМЕТА</th>
+                                <th>СТАТУС</th>
+                                <th>ДЕЙСТВИЯ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Данные будут заполнены через JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <button class="btn btn-primary" id="add-subject-btn">Добавить предмет</button>
+            </div>
+            
+            <!-- Раздел Классы -->
+            <div class="section-content" id="classes-section">
+                <h1>Классы</h1>
+                
+                <div class="table-container">
+                    <table id="classes-table">
+                        <thead>
+                            <tr>
+                                <th>№</th>
+                                <th>КЛАСС</th>
+                                <th>КЛАССНЫЙ РУКОВОДИТЕЛЬ</th>
+                                <th>УЧЕБНЫЙ ГОД</th>
+                                <th>ПРЕДПРОФИЛЬ</th>
+                                <th>ДЕЙСТВИЯ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Данные будут заполнены через JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <button class="btn btn-primary" id="add-class-btn">Добавить класс</button>
+            </div>
+            
+            <!-- Раздел Календарно-тематическое планирование -->
+            <div class="section-content" id="ktp-section">
+                <h1>Календарно-тематический план (КТП)</h1>
+                <p>Список моих КТП</p>
+                
+                <button class="btn btn-primary" id="add-ktp-btn">+ Добавить КТП</button>
+                
+                <div class="empty-state">
+                    <h3>У вас пока нет созданных КТП</h3>
+                    <p>Нажмите кнопку "Добавить КТП", чтобы начать.</p>
+                </div>
+            </div>
+            
+            <!-- Раздел Учебная нагрузка -->
+            <div class="section-content" id="workload-section">
+                <h1>Учебная нагрузка</h1>
+                
+                <div id="workload-content">
+                    <!-- Данные будут заполнены через JavaScript -->
+                </div>
+            </div>
+            
+            <!-- Раздел Типы уроков и вес -->
+            <div class="section-content" id="lesson-types-section">
+                <h1>Типы уроков</h1>
+                
+                <div class="table-container">
+                    <table id="lesson-types-table">
+                        <thead>
+                            <tr>
+                                <th>№</th>
+                                <th>ПОЛНОЕ НАЗВАНИЕ</th>
+                                <th>КРАТКОЕ НАЗВАНИЕ</th>
+                                <th>ВЕС</th>
+                                <th>ДЕЙСТВИЯ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Данные будут заполнены через JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <button class="btn btn-primary" id="add-lesson-type-btn">Добавить тип урока</button>
+            </div>
+            
+            <!-- Раздел Предпрофили -->
+            <div class="section-content" id="profiles-section">
+                <h1>Предпрофили</h1>
+                
+                <div class="table-container">
+                    <table id="profiles-table">
+                        <thead>
+                            <tr>
+                                <th>№</th>
+                                <th>НАИМЕНОВАНИЕ ПРЕДПРОФИЛЯ</th>
+                                <th>ДЕЙСТВИЯ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Данные будут заполнены через JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <button class="btn btn-primary" id="add-profile-btn">Добавить предпрофиль</button>
+            </div>
+            
+            <!-- Раздел Кабинеты -->
+            <div class="section-content" id="classrooms-section">
+                <h1>Кабинеты</h1>
+                
+                <div class="table-container">
+                    <table id="classrooms-table">
+                        <thead>
+                            <tr>
+                                <th>№ КАБИНЕТА</th>
+                                <th>НАИМЕНОВАНИЕ КАБИНЕТА</th>
+                                <th>ДЕЙСТВИЯ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Данные будут заполнены через JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                
+                <button class="btn btn-primary" id="add-classroom-btn">Добавить кабинет</button>
+            </div>
+            
+            <!-- Остальные разделы... -->
+        </div>
+    </main>
+
+    <!-- Модальные окна для всех разделов учебного процесса -->
+    
+    <!-- Модальное окно добавления учебного периода -->
+    <div class="modal" id="add-academic-period-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Добавление учебного периода</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="add-academic-period-form">
+                <div class="form-group required">
+                    <label>Название периода</label>
+                    <input type="text" placeholder="2025-2026 учебный год" required>
+                </div>
+                
+                <div class="form-group required">
+                    <label>Тип периода</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="quarters" name="period-type" value="quarters" required>
+                            <label for="quarters">Четверти</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="semesters" name="period-type" value="semesters" required>
+                            <label for="semesters">Полугодия</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="trimesters" name="period-type" value="trimesters" required>
+                            <label for="trimesters">Триместры</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="terms" name="period-type" value="terms" required>
+                            <label for="terms">Семестры</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Период</th>
+                                <th>Начало</th>
+                                <th>Окончание</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1 период</td>
+                                <td><input type="text" placeholder="ДД.ММ.ГГГГ"></td>
+                                <td><input type="text" placeholder="ДД.ММ.ГГГГ"></td>
+                            </tr>
+                            <tr>
+                                <td>2 период</td>
+                                <td><input type="text" placeholder="ДД.ММ.ГГГГ"></td>
+                                <td><input type="text" placeholder="ДД.ММ.ГГГГ"></td>
+                            </tr>
+                            <tr>
+                                <td>3 период</td>
+                                <td><input type="text" placeholder="ДД.ММ.ГГГГ"></td>
+                                <td><input type="text" placeholder="ДД.ММ.ГГГГ"></td>
+                            </tr>
+                            <tr>
+                                <td>4 период</td>
+                                <td><input type="text" placeholder="ДД.ММ.ГГГГ"></td>
+                                <td><input type="text" placeholder="ДД.ММ.ГГГГ"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary modal-close">Закрыть</button>
+                    <button type="submit" class="btn btn-primary">Добавить период</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модальное окно добавления предмета -->
+    <div class="modal" id="add-subject-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Добавление предмета</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="add-subject-form">
+                <div class="form-group required">
+                    <label>Название предмета</label>
+                    <input type="text" placeholder="Например, Алгебра" required>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary modal-close">Закрыть</button>
+                    <button type="submit" class="btn btn-primary">Добавить предмет</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модальное окно добавления класса -->
+    <div class="modal" id="add-class-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Добавление класса</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="add-class-form">
+                <div class="form-group required">
+                    <label>Цифра класса</label>
+                    <input type="number" min="1" max="11" placeholder="1" required>
+                </div>
+                
+                <div class="form-group required">
+                    <label>Литер класса</label>
+                    <input type="text" placeholder="A" required>
+                </div>
+                
+                <div class="form-group required">
+                    <label>Классный руководитель</label>
+                    <select required>
+                        <option value="">– Выберите руководителя –</option>
+                        <!-- Данные будут заполнены через JavaScript -->
+                    </select>
+                </div>
+                
+                <div class="form-group required">
+                    <label>Учебный год</label>
+                    <select required>
+                        <option value="">– Выберите учебный год –</option>
+                        <!-- Данные будут заполнены через JavaScript -->
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label>Предпрофиль (если есть)</label>
+                    <select>
+                        <option value="none">Общеобразовательный (без предпрофиля)</option>
+                        <!-- Данные будут заполнены через JavaScript -->
+                    </select>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary modal-close">Закрыть</button>
+                    <button type="submit" class="btn btn-primary">Добавить класс</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модальное окно добавления типа урока -->
+    <div class="modal" id="add-lesson-type-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Добавление типа урока</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="add-lesson-type-form">
+                <div class="form-group required">
+                    <label>Полное название типа</label>
+                    <input type="text" placeholder="Например, Контрольная работа" required>
+                </div>
+                
+                <div class="form-group required">
+                    <label>Краткое название (макс. 3-5 букв)</label>
+                    <input type="text" placeholder="Например, К/Р" maxlength="5" required>
+                </div>
+                
+                <div class="form-group required">
+                    <label>Вес типа урока (число)</label>
+                    <input type="number" min="1" placeholder="Например, 1" required>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary modal-close">Закрыть</button>
+                    <button type="submit" class="btn btn-primary">Добавить тип урока</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модальное окно добавления предпрофиля -->
+    <div class="modal" id="add-profile-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Добавление предпрофиля</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="add-profile-form">
+                <div class="form-group required">
+                    <label>Наименование предпрофиля</label>
+                    <input type="text" placeholder="Например, Физико-математический" required>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary modal-close">Закрыть</button>
+                    <button type="submit" class="btn btn-primary">Добавить предпрофиль</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модальное окно добавления кабинета -->
+    <div class="modal" id="add-classroom-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Добавление кабинета</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="add-classroom-form">
+                <div class="form-group required">
+                    <label>Номер кабинета</label>
+                    <input type="text" placeholder="Например, 101" required>
+                </div>
+                
+                <div class="form-group required">
+                    <label>Название кабинета</label>
+                    <input type="text" placeholder="Например, Кабинет русского языка" required>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary modal-close">Закрыть</button>
+                    <button type="submit" class="btn btn-primary">Добавить кабинет</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Модальное окно создания КТП -->
+    <div class="modal" id="add-ktp-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Создание КТП</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <form id="add-ktp-form">
+                <h3>Новый календарно-тематический план</h3>
+                
+                <div class="form-group required">
+                    <label>Классы</label>
+                    <select required>
+                        <option value="">– Выберите классы –</option>
+                        <!-- Данные будут заполнены через JavaScript -->
+                    </select>
+                </div>
+                
+                <div class="form-group required">
+                    <label>Название КТП</label>
+                    <input type="text" placeholder="Например, Алгебра 7 класс" required>
+                </div>
+                
+                <div class="form-group">
+                    <label>Авторы учебника</label>
+                    <input type="text" placeholder="Например, Мерзляк А.Г., Полонский В.Б.">
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary modal-close">Закрыть</button>
+                    <button type="submit" class="btn btn-primary">Добавить КТП</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Данные для учебного процесса
+        const academicPeriodsData = [
+            { id: 1, name: "25/26", period1: "08.06.2025 - 26.10.2025", period2: "05.11.2025 - 28.12.2025", period3: "12.01.2026 - 22.03.2026", period4: "30.03.2026 - 24.05.2026", weeks: 45 },
+            { id: 2, name: "中文", period1: "10.09.2025 - 30.11.-0001", period2: "30.11.-0001 - 28.12.2025", period3: "02.02.2026 - 30.11.-0001", period4: "30.11.-0001 - 31.05.2026", weeks: 32 }
+        ];
+
+        const subjectsData = [
+            { id: 1, name: "Алгебра", status: "Пользовательский" },
+            { id: 2, name: "Английский язык", status: "Пользовательский" },
+            { id: 3, name: "Биология", status: "Пользовательский" },
+            { id: 4, name: "Вероятность и Статистика", status: "Пользовательский" },
+            { id: 5, name: "География", status: "Пользовательский" },
+            { id: 6, name: "Геометрия", status: "Пользовательский" },
+            { id: 7, name: "Графы", status: "Пользовательский" }
+        ];
+
+        const classesData = [
+            { id: 1, class: "1A", teacher: "Антонов Илья Алексеевич", year: "2025-2026", profile: "Общеобразовательный" },
+            { id: 2, class: "2A", teacher: "Дербехина Наталья Петровна", year: "2025-2026", profile: "Общеобразовательный" },
+            { id: 3, class: "4B", teacher: "Литвинцева Владислава Андреевна", year: "2025-2026", profile: "Общеобразовательный" },
+            { id: 4, class: "7b", teacher: "Антонов Илья Алексеевич", year: "2025-2026", profile: "Лингвистический" }
+        ];
+
+        const lessonTypesData = [
+            { id: 1, fullName: "Консультация", shortName: "КОН", weight: 1 },
+            { id: 2, fullName: "Лекция", shortName: "ЛЕК", weight: 1 },
+            { id: 3, fullName: "Поведение", shortName: "ПОВ", weight: 1 },
+            { id: 4, fullName: "Портфолио", shortName: "П", weight: 1 },
+            { id: 5, fullName: "Продуктивные задания", shortName: "ПрЗ", weight: 1 },
+            { id: 6, fullName: "Обзорное занятие", shortName: "ОЗ", weight: 1 },
+            { id: 7, fullName: "Языковая тема", shortName: "Яз", weight: 1 }
+        ];
+
+        const profilesData = [
+            { id: 1, name: "Общеобразовательный", isSystem: true },
+            { id: 2, name: "Лингвистический", isSystem: false },
+            { id: 3, name: "Физико-математический", isSystem: false }
+        ];
+
+        const classroomsData = [
+            { id: 1, number: "211", name: "Английский язык" }
+        ];
+
+        const teachersData = [
+            { id: 1, name: "Антонов Илья Алексеевич" },
+            { id: 2, name: "Дербехина Наталья Петровна" },
+            { id: 3, name: "Литвинцева Владислава Андреевна" }
+        ];
+
+        const academicYearsData = [
+            { id: 1, name: "2024-2025" },
+            { id: 2, name: "2025-2026" },
+            { id: 3, name: "2026-2027" }
+        ];
+
+        // Учебный план
+        const curriculumData = {
+            primary: [
+                { subject: "Математика", hours: [4, 4, 4, 4] },
+                { subject: "Русский язык", hours: [5, 5, 5, 5] },
+                { subject: "Литературное чтение", hours: [4, 4, 3, 3] },
+                { subject: "Окружающий мир", hours: [2, 2, 2, 2] },
+                { subject: "Технология", hours: [1, 1, 1, 1] },
+                { subject: "Физическая культура", hours: [3, 3, 3, 3] }
+            ],
+            basic: [
+                { subject: "Алгебра", hours: [3, 3, 3, 3, 3] },
+                { subject: "Геометрия", hours: [2, 2, 2, 2, 2] },
+                { subject: "Русский язык", hours: [5, 5, 4, 4, 3] },
+                { subject: "Литература", hours: [3, 3, 3, 3, 3] },
+                { subject: "Английский язык", hours: [3, 3, 3, 3, 3] },
+                { subject: "История", hours: [2, 2, 2, 2, 2] },
+                { subject: "Биология", hours: [1, 2, 2, 2, 2] },
+                { subject: "География", hours: [1, 2, 2, 2, 2] },
+                { subject: "Физика", hours: [0, 0, 2, 2, 2] },
+                { subject: "Химия", hours: [0, 0, 0, 2, 2] },
+                { subject: "Физическая культура", hours: [3, 3, 3, 3, 3] }
+            ],
+            secondary: [
+                { subject: "Алгебра и начала анализа", hours: [3, 3] },
+                { subject: "Геометрия", hours: [2, 2] },
+                { subject: "Русский язык", hours: [2, 2] },
+                { subject: "Литература", hours: [3, 3] },
+                { subject: "Английский язык", hours: [3, 3] },
+                { subject: "История", hours: [3, 3] },
+                { subject: "Обществознание", hours: [2, 2] },
+                { subject: "Физика", hours: [3, 3] },
+                { subject: "Химия", hours: [2, 2] },
+                { subject: "Биология", hours: [2, 2] },
+                { subject: "Физическая культура", hours: [3, 3] }
+            ]
+        };
+
+        // Учебная нагрузка
+        const workloadData = [
+            {
+                teacher: "Антонов Илья Алексеевич",
+                subjects: [
+                    { name: "Калейдоскоп занимательной математики", classes: ["1b", "2A", "4B", "6A", "7b"] },
+                    { name: "Математика", classes: ["1b", "2A", "4B", "6A", "7b"] },
+                    { name: "Математика олимпиадная", classes: ["1b", "2A", "4B", "6A", "7b"] },
+                    { name: "Разговор о важном", classes: ["1b", "2A", "4B", "6A", "7b"] }
+                ]
+            },
+            {
+                teacher: "Дербехина Наталья Петровна",
+                subjects: [
+                    { name: "Изобразительное искусство", classes: ["1b", "2A", "4B"] },
+                    { name: "Музыка", classes: ["1b", "2A", "4B"] },
+                    { name: "Основы Духовно Нравственных Культур Народов России", classes: ["1b", "2A", "4B"] }
+                ]
+            },
+            {
+                teacher: "Литвинцева Владислава Андреевна",
+                subjects: [
+                    { name: "Литературное чтение", classes: ["1b", "2A", "4B"] },
+                    { name: "Математика", classes: ["1b", "2A", "4B"] }
+                ]
+            }
+        ];
+
+        // Функции для отображения данных
+        function renderAcademicPeriodsTable() {
+            const tbody = document.querySelector('#academic-periods-table tbody');
+            tbody.innerHTML = '';
+            
+            academicPeriodsData.forEach(period => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${period.id}</td>
+                    <td>${period.name}</td>
+                    <td>${period.period1}</td>
+                    <td>${period.period2}</td>
+                    <td>${period.period3}</td>
+                    <td>${period.period4}</td>
+                    <td>${period.weeks}</td>
+                    <td class="actions">
+                        <button class="action-btn" title="Редактировать">✏️</button>
+                        <button class="action-btn" title="Удалить">🗑️</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function renderSubjectsTable() {
+            const tbody = document.querySelector('#subjects-table tbody');
+            tbody.innerHTML = '';
+            
+            subjectsData.forEach(subject => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${subject.id}</td>
+                    <td>${subject.name}</td>
+                    <td>${subject.status}</td>
+                    <td class="actions">
+                        <button class="action-btn" title="Редактировать">✏️</button>
+                        <button class="action-btn" title="Удалить">🗑️</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function renderClassesTable() {
+            const tbody = document.querySelector('#classes-table tbody');
+            tbody.innerHTML = '';
+            
+            classesData.forEach(classItem => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${classItem.id}</td>
+                    <td>${classItem.class}</td>
+                    <td>${classItem.teacher}</td>
+                    <td>${classItem.year}</td>
+                    <td>${classItem.profile}</td>
+                    <td class="actions">
+                        <button class="action-btn" title="Редактировать">✏️</button>
+                        <button class="action-btn" title="Удалить">🗑️</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function renderLessonTypesTable() {
+            const tbody = document.querySelector('#lesson-types-table tbody');
+            tbody.innerHTML = '';
+            
+            lessonTypesData.forEach(type => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${type.id}</td>
+                    <td>${type.fullName}</td>
+                    <td>${type.shortName}</td>
+                    <td>${type.weight}</td>
+                    <td class="actions">
+                        <button class="action-btn" title="Редактировать">✏️</button>
+                        <button class="action-btn" title="Удалить">🗑️</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function renderProfilesTable() {
+            const tbody = document.querySelector('#profiles-table tbody');
+            tbody.innerHTML = '';
+            
+            profilesData.forEach(profile => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${profile.id}</td>
+                    <td>${profile.name}</td>
+                    <td class="actions">
+                        ${profile.isSystem ? '(системный)' : '<button class="action-btn" title="Редактировать">✏️</button>'}
+                        ${!profile.isSystem ? '<button class="action-btn" title="Удалить">🗑️</button>' : ''}
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function renderClassroomsTable() {
+            const tbody = document.querySelector('#classrooms-table tbody');
+            tbody.innerHTML = '';
+            
+            classroomsData.forEach(classroom => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${classroom.number}</td>
+                    <td>${classroom.name}</td>
+                    <td class="actions">
+                        <button class="action-btn" title="Редактировать">✏️</button>
+                        <button class="action-btn" title="Удалить">🗑️</button>
+                    </td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function renderWorkload() {
+            const container = document.getElementById('workload-content');
+            container.innerHTML = '';
+            
+            workloadData.forEach(teacherData => {
+                const teacherSection = document.createElement('div');
+                teacherSection.className = 'teacher-section';
+                
+                let tableHTML = `
+                    <div class="teacher-name">${teacherData.teacher}</div>
+                    <div class="table-container">
+                        <table class="workload-table">
+                            <thead>
+                                <tr>
+                                    <th>ПРЕДМЕТ</th>
+                                    <th>1b</th>
+                                    <th>2A</th>
+                                    <th>4B</th>
+                                    <th>6A</th>
+                                    <th>7b</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                `;
+                
+                teacherData.subjects.forEach(subject => {
+                    tableHTML += `<tr><td class="subject-name">${subject.name}</td>`;
+                    
+                    // Создаем ячейки для каждого класса
+                    const allClasses = ["1b", "2A", "4B", "6A", "7b"];
+                    allClasses.forEach(className => {
+                        const isActive = subject.classes.includes(className);
+                        tableHTML += `<td class="class-cell ${isActive ? 'active' : ''}">${isActive ? '+' : ''}</td>`;
+                    });
+                    
+                    tableHTML += '</tr>';
+                });
+                
+                tableHTML += `
+                            </tbody>
+                        </table>
+                    </div>
+                `;
+                
+                teacherSection.innerHTML = tableHTML;
+                container.appendChild(teacherSection);
+            });
+        }
+
+        function renderCurriculum(level) {
+            const container = document.getElementById('curriculum-content');
+            
+            if (!level) {
+                container.innerHTML = '<div class="empty-state">Пожалуйста, выберите ступень обучения для отображения учебного плана.</div>';
+                return;
+            }
+            
+            const data = curriculumData[level];
+            const levelNames = {
+                primary: "Начальная школа (1-4 кл.)",
+                basic: "Основная школа (5-9 кл.)",
+                secondary: "Средняя школа (10-11 кл.)"
+            };
+            
+            let html = `
+                <h2>${levelNames[level]}</h2>
+                <div class="table-container">
+                    <table class="curriculum-table">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">УЧЕБНЫЙ ПРЕДМЕТ</th>
+            `;
+            
+            // Заголовки классов
+            const classCount = data[0].hours.length;
+            for (let i = 0; i < classCount; i++) {
+                html += `<th colspan="2">${i+1} класс</th>`;
+            }
+            
+            html += `
+                            </tr>
+                            <tr>
+            `;
+            
+            // Подзаголовки (часы в неделю)
+            for (let i = 0; i < classCount; i++) {
+                html += `<th>ч/н</th><th>Σ</th>`;
+            }
+            
+            html += `
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+            
+            // Данные предметов
+            data.forEach(subject => {
+                html += `<tr class="subject-row">`;
+                html += `<td class="subject-name">${subject.subject}</td>`;
+                
+                subject.hours.forEach(hours => {
+                    html += `<td><input type="number" class="hours-input" value="${hours}"></td>`;
+                    html += `<td>${hours * 34}</td>`; // Σ = часы в неделю * 34 недели
+                });
+                
+                html += `</tr>`;
+            });
+            
+            // Итоговая строка
+            html += `<tr><td class="subject-name"><strong>ИТОГО:</strong></td>`;
+            for (let i = 0; i < classCount; i++) {
+                const total = data.reduce((sum, subject) => sum + subject.hours[i], 0);
+                html += `<td><strong>${total}</strong></td>`;
+                html += `<td><strong>${total * 34}</strong></td>`;
+            }
+            html += `</tr>`;
+            
+            html += `
+                        </tbody>
+                    </table>
+                </div>
+                <button class="btn btn-primary">Сохранить учебный план</button>
+            `;
+            
+            container.innerHTML = html;
+        }
+
+        // Функции для заполнения выпадающих списков
+        function populateSelectors() {
+            // Заполнение списка классных руководителей
+            const teacherSelect = document.querySelector('#add-class-form select:nth-of-type(1)');
+            teacherSelect.innerHTML = '<option value="">– Выберите руководителя –</option>';
+            teachersData.forEach(teacher => {
+                const option = document.createElement('option');
+                option.value = teacher.id;
+                option.textContent = teacher.name;
+                teacherSelect.appendChild(option);
+            });
+            
+            // Заполнение списка учебных годов
+            const yearSelect = document.querySelector('#add-class-form select:nth-of-type(2)');
+            yearSelect.innerHTML = '<option value="">– Выберите учебный год –</option>';
+            academicYearsData.forEach(year => {
+                const option = document.createElement('option');
+                option.value = year.id;
+                option.textContent = year.name;
+                yearSelect.appendChild(option);
+            });
+            
+            // Заполнение списка предпрофилей
+            const profileSelect = document.querySelector('#add-class-form select:nth-of-type(3)');
+            profileSelect.innerHTML = '<option value="none">Общеобразовательный (без предпрофиля)</option>';
+            profilesData.forEach(profile => {
+                if (!profile.isSystem) {
+                    const option = document.createElement('option');
+                    option.value = profile.id;
+                    option.textContent = profile.name;
+                    profileSelect.appendChild(option);
+                }
+            });
+        }
+
+        // Функция для управления модальными окнами
+        function setupModals() {
+            // Закрытие модальных окон
+            document.querySelectorAll('.modal-close').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.modal').forEach(modal => {
+                        modal.classList.remove('active');
+                    });
+                });
+            });
+            
+            // Открытие модальных окон
+            document.getElementById('add-academic-period-btn').addEventListener('click', function() {
+                document.getElementById('add-academic-period-modal').classList.add('active');
+            });
+            
+            document.getElementById('add-subject-btn').addEventListener('click', function() {
+                document.getElementById('add-subject-modal').classList.add('active');
+            });
+            
+            document.getElementById('add-class-btn').addEventListener('click', function() {
+                document.getElementById('add-class-modal').classList.add('active');
+            });
+            
+            document.getElementById('add-lesson-type-btn').addEventListener('click', function() {
+                document.getElementById('add-lesson-type-modal').classList.add('active');
+            });
+            
+            document.getElementById('add-profile-btn').addEventListener('click', function() {
+                document.getElementById('add-profile-modal').classList.add('active');
+            });
+            
+            document.getElementById('add-classroom-btn').addEventListener('click', function() {
+                document.getElementById('add-classroom-modal').classList.add('active');
+            });
+            
+            document.getElementById('add-ktp-btn').addEventListener('click', function() {
+                document.getElementById('add-ktp-modal').classList.add('active');
+            });
+            
+            // Обработка форм
+            document.getElementById('add-academic-period-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Учебный период успешно добавлен!');
+                this.reset();
+                document.getElementById('add-academic-period-modal').classList.remove('active');
+            });
+            
+            document.getElementById('add-subject-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Предмет успешно добавлен!');
+                this.reset();
+                document.getElementById('add-subject-modal').classList.remove('active');
+            });
+            
+            document.getElementById('add-class-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Класс успешно добавлен!');
+                this.reset();
+                document.getElementById('add-class-modal').classList.remove('active');
+            });
+            
+            document.getElementById('add-lesson-type-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Тип урока успешно добавлен!');
+                this.reset();
+                document.getElementById('add-lesson-type-modal').classList.remove('active');
+            });
+            
+            document.getElementById('add-profile-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Предпрофиль успешно добавлен!');
+                this.reset();
+                document.getElementById('add-profile-modal').classList.remove('active');
+            });
+            
+            document.getElementById('add-classroom-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Кабинет успешно добавлен!');
+                this.reset();
+                document.getElementById('add-classroom-modal').classList.remove('active');
+            });
+            
+            document.getElementById('add-ktp-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('КТП успешно создан!');
+                this.reset();
+                document.getElementById('add-ktp-modal').classList.remove('active');
+            });
+        }
+
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            // Инициализация таблиц
+            renderAcademicPeriodsTable();
+            renderSubjectsTable();
+            renderClassesTable();
+            renderLessonTypesTable();
+            renderProfilesTable();
+            renderClassroomsTable();
+            renderWorkload();
+            
+            // Заполнение выпадающих списков
+            populateSelectors();
+            
+            // Настройка модальных окон
+            setupModals();
+            
+            // Обработчик для выбора ступени обучения
+            document.getElementById('education-level-select').addEventListener('change', function() {
+                renderCurriculum(this.value);
+            });
+            
+            // Обработчики для меню учебного процесса
+            const educationMenuItem = document.querySelector('.menu-item[data-section="education"]');
+            const educationSubmenu = document.getElementById('education-submenu');
+            
+            educationMenuItem.addEventListener('click', function(e) {
+                e.stopPropagation();
+                educationSubmenu.classList.toggle('open');
+            });
+            
+            // Обработчики для подпунктов учебного процесса
+            document.querySelectorAll('#education-submenu .submenu-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    const section = this.getAttribute('data-section');
+                    
+                    document.querySelectorAll('.submenu-item').forEach(item => {
+                        item.classList.remove('active');
+                    });
+                    
+                    this.classList.add('active');
+                    
+                    switchSection(section);
+                    
+                    educationSubmenu.classList.remove('open');
+                });
+            });
+            
+            // Закрытие подменю при клике вне его
+            document.addEventListener('click', function() {
+                educationSubmenu.classList.remove('open');
+            });
+        });
+
+        // Функция для переключения разделов
+        function switchSection(sectionId) {
+            document.querySelectorAll('.section-content').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            const activeSection = document.getElementById(sectionId + '-section');
+            if (activeSection) {
+                activeSection.classList.add('active');
+            }
+            
+            // Обновление заголовка страницы
+            const pageTitle = document.getElementById('page-title');
+            const sectionTitles = {
+                'academic-years': 'Учебный год и периоды - АИС СП',
+                'curriculum': 'Учебный план - АИС СП',
+                'subjects': 'Предметы - АИС СП',
+                'classes': 'Классы - АИС СП',
+                'ktp': 'Календарно-тематическое планирование - АИС СП',
+                'workload': 'Учебная нагрузка - АИС СП',
+                'lesson-types': 'Типы уроков и вес - АИС СП',
+                'profiles': 'Предпрофили - АИС СП',
+                'classrooms': 'Кабинеты - АИС СП'
+            };
+            
+            pageTitle.textContent = sectionTitles[sectionId] || 'Учебный процесс - АИС СП';
+        }
+    </script>
+</body>
+</html>            margin: 0 auto;
         }
         
         .logo {
